@@ -1,0 +1,1 @@
+export const API_BASE_URL = "/choreo-apis/Make-your-own-Adventure/backend/v1/api"
