@@ -40,7 +40,7 @@ def create_story(
         job_id=job_id,
         session_id=session_id,
         theme=request.theme,
-        status="pending"
+        status="pending",
     )
     db.add(job)
     db.commit()

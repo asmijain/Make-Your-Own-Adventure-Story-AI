@@ -10,7 +10,6 @@ router = APIRouter(
     tags=["jobs"]
 )
 
-
 @router.get("/{job_id}", response_model=StoryJobResponse)
 def get_job_status(job_id: str, db: Session = Depends(get_db)):
     job = db.query(StoryJob).filter(StoryJob.job_id == job_id).first()

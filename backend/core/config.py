@@ -13,6 +13,15 @@ class Settings(BaseSettings):
 
     GROQ_API_KEY: str
 
+    # ── NEW: JWT settings ──────────────────────────────────────────────────
+    # JWT_SECRET_KEY signs every token. Anyone who knows this secret can
+    # forge valid tokens for any user — keep it out of git, set it as an
+    # environment variable on Render, and use a long random string.
+    # Generate one with: python -c "import secrets; print(secrets.token_hex(32))"
+    JWT_SECRET_KEY: str = "dev-only-change-this-secret-before-deploying"
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440  # 24 hours
+
     def __init__(self, **values):
         super().__init__(**values)
         if not self.DEBUG:
