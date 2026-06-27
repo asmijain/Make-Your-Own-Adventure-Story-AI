@@ -45,19 +45,20 @@ function StoryLoader() {
     }
 
     if (error) {
-        return <div className="story-loader">
-            <div className="error-message">
-                <h2>Story Not Found</h2>
+        return (
+            <div className="page-card error-stage">
+                <div className="error-glyph">📕</div>
+                <h2>This Tale Is Lost</h2>
                 <p>{error}</p>
-                <button onClick={createNewStory}>Go to Story Generator</button>
+                <button onClick={createNewStory} className="submit-btn">
+                    Begin a New Tale
+                </button>
             </div>
-        </div>
+        )
     }
 
     if (story) {
-        return <div className="story-loader">
-            <StoryGame story={story} onNewStory={createNewStory} />
-        </div>
+        return <StoryGame story={story} onNewStory={createNewStory} />
     }
 }
 

@@ -1,7 +1,7 @@
 import {useState} from "react"
 
 function ThemeInput({onSubmit}) {
-    const [theme, setTheme]= useState("");
+    const [theme, setTheme] = useState("");
     const [error, setError] = useState("")
 
     const handleSubmit = (e) => {
@@ -15,26 +15,31 @@ function ThemeInput({onSubmit}) {
         onSubmit(theme);
     }
 
-    return <div className="theme-input-container">
-        <h2>Generate Your Adventure</h2>
-        <p>Enter a theme for your interactive story</p>
+    return (
+        <div className="page-card theme-card">
+            <p className="page-eyebrow">Begin Your Tale</p>
+            <h2>Generate Your Adventure</h2>
+            <p className="page-lede">Choose a theme, and the quill will write a story shaped around it.</p>
 
-        <form onSubmit={handleSubmit}>
-            <div className="input-group">
-                <input
-                    type="text"
-                    value={theme}
-                    onChange={(e) => setTheme(e.target.value)}
-                    placeholder="Enter a theme (e.g. prirates, space, medieval...)"
-                    className={error ? 'error' : ''}
-                />
-                {error && <p className="error-text">{error}</p>}
-            </div>
-            <button type="submit" className='generate-btn'>
-                Generate Story
-            </button>
-        </form>
-    </div>
+            <form className="theme-form" onSubmit={handleSubmit}>
+                <div>
+                    <label className="field-label">Theme</label>
+                    <input
+                        type="text"
+                        value={theme}
+                        onChange={(e) => setTheme(e.target.value)}
+                        placeholder="e.g. pirates, deep space, a haunted manor..."
+                        className={error ? 'input-error' : ''}
+                        autoFocus
+                    />
+                    {error && <p className="field-error">{error}</p>}
+                </div>
+                <button type="submit" className="submit-btn">
+                    Generate Story
+                </button>
+            </form>
+        </div>
+    )
 }
 
 export default ThemeInput;

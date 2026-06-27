@@ -18,7 +18,7 @@ function Register() {
     setLoading(true)
     try {
       const res = await registerUser(email, password)
-      login(res.data)   // registration logs the user in immediately
+      login(res.data)
       navigate("/")
     } catch (e) {
       setError(e.response?.data?.detail || "Registration failed. Please try again.")
@@ -32,12 +32,14 @@ function Register() {
       <h2>Create Account</h2>
       {error && <div className="auth-error">{error}</div>}
       <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />
-
-        <label>Password</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} placeholder="Minimum 6 characters" />
-
+        <div>
+          <label>Email</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} placeholder="Minimum 6 characters" />
+        </div>
         <button type="submit" disabled={loading}>
           {loading ? "Creating account…" : "Create Account"}
         </button>

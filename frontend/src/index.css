@@ -1,11 +1,45 @@
-:root {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* ════════════════════════════════════════════════════════════════════════
+   TOKENS:
+     --ink            midnight page background
+     --leather        card / surface background
+     --leather-light  hover / elevated surface
+     --gold           signature accent — gilded edge, wax-seal gold
+     --gold-soft      low-opacity gold for glows/borders
+     --crimson        losing-ending / danger accent — wax-seal red
+     --sage           winning-ending / success accent — laurel green
+     --parchment      primary text — aged paper
+     --parchment-dim  secondary text — faded ink
+   ════════════════════════════════════════════════════════════════════════ */
 
-  color-scheme: light dark;
-  color: #333;
-  background-color: #f8f9fa;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink:            #15110d;
+  --leather:        #211a14;
+  --leather-light:  #2b2219;
+  --gold:           #cba135;
+  --gold-soft:      rgba(203, 161, 53, 0.18);
+  --gold-dim:       rgba(203, 161, 53, 0.45);
+  --crimson:        #8c2f2f;
+  --crimson-soft:   rgba(140, 47, 47, 0.16);
+  --sage:           #6e8f5c;
+  --sage-soft:      rgba(110, 143, 92, 0.16);
+  --parchment:      #f3e9d2;
+  --parchment-dim:  #b5a488;
+  --parchment-faint:#7a6f5c;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --radius-page: 18px;
+  --radius-soft: 10px;
+
+  font-family: var(--font-body);
+  line-height: 1.55;
+  font-weight: 400;
+  color-scheme: dark;
+  color: var(--parchment);
+  background-color: var(--ink);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,44 +47,57 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { min-height: 100vh; }
 
 body {
-  margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(203,161,53,0.07), transparent),
+    var(--ink);
 }
 
-h1 {
-  font-size: 2.5rem;
-  line-height: 1.2;
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--parchment);
+  letter-spacing: 0.01em;
+}
+h1 { font-size: 2.6rem; line-height: 1.15; }
+h2 { font-size: 1.9rem; line-height: 1.25; }
+h3 { font-size: 1.3rem; line-height: 1.35; font-weight: 600; }
+
+p { color: var(--parchment-dim); }
+
+a { color: var(--gold); }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
 
-h2 {
-  font-size: 1.8rem;
-  line-height: 1.3;
+input {
+  font-family: var(--font-body);
 }
 
-h3 {
-  font-size: 1.3rem;
-  line-height: 1.4;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f8f9fa;
-    background-color: #1a1a2e;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
   }
-
-  button {
-    background-color: #3f72af;
-  }
-
-  button:hover {
-    background-color: #1a6fb0;
-  }
 }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--leather-light); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }

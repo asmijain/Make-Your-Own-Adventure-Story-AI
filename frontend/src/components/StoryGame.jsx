@@ -6,11 +6,13 @@ function StoryGame({story, onNewStory}) {
     const [options, setOptions] = useState([])
     const [isEnding, setIsEnding] = useState(false)
     const [isWinningEnding, setIsWinningEnding] = useState(false)
+    const [depth, setDepth] = useState(0)   // ← NEW: purely additive chapter counter
 
     useEffect(() => {
         if (story && story.root_node) {
             const rootNodeId = story.root_node.id
             setCurrentNodeId(rootNodeId)
+            setDepth(0)
         }
     }, [story])
 
@@ -33,58 +35,62 @@ function StoryGame({story, onNewStory}) {
 
     const chooseOption = (optionId) => {
         setCurrentNodeId(optionId)
+        setDepth(d => d + 1)   // ← NEW
     }
 
     const restartStory = () => {
         if (story && story.root_node) {
             setCurrentNodeId(story.root_node.id)
+            setDepth(0)   // ← NEW
         }
     }
 
-    return <div className="story-game">
-        <header className="story-header">
-            <h2>{story.title}</h2>
-        </header>
+    return (
+        <div className="page-card story-page">
+            <p className="story-chapter">Chapter {depth + 1}</p>
+            <h2 className="story-title">{story.title}</h2>
 
-        <div className="story-content">
-            {currentNode && <div className="story-node">
-                <p>{currentNode.content}</p>
+            {currentNode && (
+                <div className="story-node" key={currentNodeId}>
+                    <p>{currentNode.content}</p>
 
-                {isEnding ?
-                    <div className="story-ending">
-                        <h3>{isWinningEnding ? "Congratulations" : "The End"}</h3>
-                        {isWinningEnding ? "You reached a winning ending" : "Your adventure has ended."}
-                    </div>
-                    :
-                    <div className="story-options">
-                        <h3>What will you do?</h3>
-                        <div className="options-list">
-                            {options.map((option, index) => {
-                                return <button
-                                        key={index}
-                                        onClick={() => chooseOption(option.node_id)}
-                                        className="option-btn"
-                                        >
-                                        {option.text}
-                                    </button>
-                            })}
+                    {isEnding ? (
+                        <div className={`ending-banner ${isWinningEnding ? "win" : "lose"}`}>
+                            <span className="ending-icon">{isWinningEnding ? "🏆" : "🕯️"}</span>
+                            <div>
+                                <h3>{isWinningEnding ? "Congratulations" : "The End"}</h3>
+                                <p>{isWinningEnding ? "You found a winning ending." : "Your adventure ends here."}</p>
+                            </div>
                         </div>
-                    </div>
-                }
-            </div>}
+                    ) : (
+                        <div className="story-options">
+                            <h3>What will you do?</h3>
+                            {options.map((option, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => chooseOption(option.node_id)}
+                                    className="option-btn"
+                                >
+                                    {option.text}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
 
-            <div className="story-controls">
-                <button onClick={restartStory} className="reset-btn">
-                    Restart Story
+            <div className="story-actions">
+                <button onClick={restartStory} className="ghost-btn">
+                    ↺ Restart Story
                 </button>
+                {onNewStory && (
+                    <button onClick={onNewStory} className="ghost-btn">
+                        + New Story
+                    </button>
+                )}
             </div>
-
-            {onNewStory && <button onClick={onNewStory} className="new-story-btn">
-                New Story
-            </button>}
-
         </div>
-    </div>
+    )
 }
 
 export default StoryGame

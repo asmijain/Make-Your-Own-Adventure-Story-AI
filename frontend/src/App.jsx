@@ -1,17 +1,27 @@
 import './App.css'
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route, useNavigate} from "react-router-dom"
 import StoryLoader from "./components/StoryLoader"
 import StoryGenerator from "./components/StoryGenerator.jsx";
 import Navbar from "./components/Navbar.jsx"
 import Login from "./components/Login.jsx"
 import Register from "./components/Register.jsx"
 
+function Brand() {
+  const navigate = useNavigate()
+  return (
+    <div className="brand" onClick={() => navigate("/")}>
+      <span className="brand-seal">A</span>
+      <h1>Adventure&nbsp;AI</h1>
+    </div>
+  )
+}
+
 function App() {
   return (
     <Router>
       <div className="app-container">
         <header>
-          <h1>Interactive Story Generator</h1>
+          <Brand />
           <Navbar />
         </header>
         <main>

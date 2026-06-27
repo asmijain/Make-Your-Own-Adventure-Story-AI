@@ -32,12 +32,14 @@ function Login() {
       <h2>Sign In</h2>
       {error && <div className="auth-error">{error}</div>}
       <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />
-
-        <label>Password</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-
+        <div>
+          <label>Email</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
         <button type="submit" disabled={loading}>
           {loading ? "Signing in…" : "Sign In"}
         </button>
