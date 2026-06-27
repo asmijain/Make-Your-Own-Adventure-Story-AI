@@ -13,7 +13,7 @@ export default defineConfig(({command, mode }) => {
     ...(env.VITE_DEBUG === "true" && {
       proxy: {
         "/api": {
-          target: "http://localhost:8000",
+          target: "http://localhost:9999",
           changeOrigin: true,
           secure: false
         }
